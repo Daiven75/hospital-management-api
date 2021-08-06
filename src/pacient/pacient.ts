@@ -1,4 +1,4 @@
-import { Gender } from "src/models/Gender";
+import { Gender } from "src/enums/Gender";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -10,18 +10,18 @@ export class Pacient {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ length: 15 })
     cpf: string;
 
     @Column()
     email: string;
 
-    @Column()
+    @Column({ scale: 2 })
     age: number;
 
-    @Column()
+    @Column("enum", { enum: Gender })
     gender: Gender;
 
-    @Column()
-    phoneNumber: string;
+    @Column({ scale: 2 })
+    phoneNumber: number;
 }

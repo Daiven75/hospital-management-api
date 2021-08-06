@@ -1,4 +1,4 @@
-import { Gender } from "src/models/Gender";
+import { Gender } from "src/enums/Gender";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -10,21 +10,21 @@ export class Doctor {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ length: 15 })
     crm: string;
 
     @Column()
     email: string;
 
-    @Column()
+    @Column("enum", { enum: Gender })
     gender: Gender;
 
-    @Column()
+    @Column("simple-array")
     qualifications: string[];
 
-    @Column()
-    phoneNumber: string;
+    @Column({ scale: 2 })
+    phoneNumber: number;
 
-    @Column()
-    dateJoining: Date;
+    @Column("date")
+    dateJoining?: string;
 }

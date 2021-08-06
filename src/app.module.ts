@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DoctorModule } from './doctor/doctor.module';
 import { PacientModule } from './pacient/pacient.module';
 
 @Module({
@@ -10,13 +11,14 @@ import { PacientModule } from './pacient/pacient.module';
       type: 'mysql',
       host: '172.17.0.2',
       port: 3306,
+      database: 'hospital',
       username: 'root',
       password: 'root',
-      database: 'hospital',
       autoLoadEntities: true,
       synchronize: true
     }),
-    PacientModule
+    PacientModule,
+    DoctorModule
   ],
   controllers: [AppController],
   providers: [AppService]

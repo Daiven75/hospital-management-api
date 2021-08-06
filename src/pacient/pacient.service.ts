@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BadRequestException } from "src/exceptions/BadRequestException";
-import { Gender } from "src/models/Gender";
 import { Pacient } from "./pacient";
 import { PacientRepository } from "./pacient.repository";
+import { ErrorType } from "src/enums/ErrorType";
 
 @Injectable()
 export class PacientService {
@@ -22,7 +22,7 @@ export class PacientService {
             where: { cpf: pacient.cpf }
         });
         if (existsPacientWithSameCpf) {
-            throw new BadRequestException("PAC-0001", Gender.PAC0005);
+            throw new BadRequestException("HMA-0001", ErrorType.HMA0001);
         }
         return this.pacientRepository.save(pacient);
     }
@@ -30,15 +30,16 @@ export class PacientService {
     async findPacientByCpf(cpf: string): Promise<Pacient> {
         const pacient = await this.pacientRepository.findOne({ where: { cpf: cpf } });
         if (!pacient) {
-            throw new BadRequestException("PAC-0001", Gender.PAC0005);
+            throw new BadRequestException("HMA-0003", ErrorType.HMA0003);
         }
         return pacient;
     }
 
     async findById(id: string): Promise<Pacient> {
+        console.log("passou por aqui findById");
         const pacient = await this.pacientRepository.findOne(id);
         if (!pacient) {
-            throw new BadRequestException("PAC-0001", Gender.PAC0005);
+            throw new BadRequestException("HMA-0003", ErrorType.HMA0003);
         }
         return pacient;
     }
@@ -50,7 +51,8 @@ export class PacientService {
         return this.pacientRepository.save(pacient);
     }
 
-    async deletePacient(id: string): Promise<void> {
+    async deletePacient(id: string) {
+        console.log("passou por aqui deletePacient");
         await this.findById(id);
         this.pacientRepository.delete(id);
     }

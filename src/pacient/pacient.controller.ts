@@ -17,21 +17,21 @@ export class PacientController {
         return this.pacientService.registerPacient(pacient);
     }
 
-    @Get("/:id")
-    findById(@Param("id") id): Promise<Pacient> {
+    @Get('/:id')
+    findById(@Param('id') id): Promise<Pacient> {
         return this.pacientService.findById(id);
     }
 
-    @Put("/:id")
+    @Put('/:id')
     @HttpCode(201)
-    updatePacient(@Param("id") id: string, @Body() pacient: Pacient): Promise<Pacient> {
+    updatePacient(@Param('id') id: string, @Body() pacient: Pacient): Promise<Pacient> {
         const p = this.pacientService.updatePacient(id, pacient);
         console.log("Controller P é igual a: " + p);
         return p;
     }
 
-    @Delete("/:id")
-    deletePacient(@Param("id") id): void {
+    @Delete('/:id')
+    deletePacient(@Param('id') id): void {
         this.pacientService.deletePacient(id);
     }
 }
