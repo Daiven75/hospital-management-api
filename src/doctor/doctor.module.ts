@@ -1,5 +1,8 @@
+import { forwardRef, Global } from "@nestjs/common";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { AuthModule } from "src/auth/auth.module";
+import { CheckAccessModule } from "src/auth/interceptors/check-acess.module";
 import { Doctor } from "./doctor";
 import { DoctorController } from "./doctor.controller";
 import { DoctorService } from "./doctor.service";
@@ -7,9 +10,11 @@ import { DoctorService } from "./doctor.service";
 @Module({
     imports: [
         TypeOrmModule.forFeature([Doctor]),
+        forwardRef(() => AuthModule),
     ],
     controllers: [DoctorController],
-    providers: [DoctorService]
+    providers: [DoctorService],
+    exports: [TypeOrmModule, DoctorService]
 })
 
 export class DoctorModule { }
