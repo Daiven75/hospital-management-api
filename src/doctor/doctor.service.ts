@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { timestamp } from "rxjs";
 import { ErrorType } from "src/enums/ErrorType";
 import { BadRequestException } from "src/exceptions/BadRequestException";
 import { Repository } from "typeorm";
 import { Doctor } from "./doctor";
+import { CreateDoctorDTO } from "./dto/create-doctor.dto";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class DoctorService {
@@ -18,13 +19,18 @@ export class DoctorService {
         return await this.doctorRepository.find();
     }
 
-    async registerDoctor(doctor: Doctor): Promise<Doctor> {
+    async registerDoctor(createDoctorDto: CreateDoctorDTO): Promise<Doctor> {
+        createDoctorDto.password = await bcrypt.hash(createDoctorDto.password, 12);
+
         const existsDoctorWithSameCrm = await this.doctorRepository.findOne({
-            where: { crm: doctor.crm }
+            where: { crm: createDoctorDto.crm }
         });
+
         if (existsDoctorWithSameCrm) {
             throw new BadRequestException("HMA0002", ErrorType.HMA0002);
         }
+
+        const doctor = await this.doctorRepository.create(createDoctorDto);
         doctor.dateJoining = new Date().toISOString().split('T')[0];
         return await this.doctorRepository.save(doctor);
     }
@@ -37,6 +43,12 @@ export class DoctorService {
         return doctor;
     }
 
+    public async findByCrm(crm: string): Promise<Doctor | undefined> {
+        return await this.doctorRepository.findOne({
+            where: { crm: crm }
+        });
+    }
+
     async updateDoctor(id: string, doctor: Doctor): Promise<Doctor> {
         await this.findById(id);
         const doctorUpdate = this.doctorRepository.create(doctor);
@@ -47,5 +59,11 @@ export class DoctorService {
     async deleteDoctor(id: string): Promise<void> {
         await this.findById(id);
         this.doctorRepository.delete(id);
+    }
+
+    public async findbyEmail(email: string): Promise<Doctor> {
+        return await this.doctorRepository.findOne({
+            where: { email: email }
+        });
     }
 }

@@ -1,7 +1,9 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from "@nestjs/common";
+import { CheckAccessInterceptor } from "src/auth/interceptors/check-access.interceptor";
 import { Pacient } from "./pacient";
 import { PacientService } from "./pacient.service";
 
+@UseInterceptors(CheckAccessInterceptor)
 @Controller("/pacients")
 export class PacientController {
     constructor(private readonly pacientService: PacientService) { }

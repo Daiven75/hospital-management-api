@@ -5,10 +5,13 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class Doctor {
 
     @PrimaryGeneratedColumn("uuid")
-    id_doctor?: string;
+    id_doctor: string;
 
     @Column()
     name: string;
+
+    @Column()
+    password: string;
 
     @Column({ length: 15 })
     crm: string;
@@ -26,5 +29,5 @@ export class Doctor {
     phoneNumber: number;
 
     @Column("date")
-    dateJoining?: string;
+    dateJoining: string;
 }

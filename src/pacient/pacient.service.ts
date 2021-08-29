@@ -4,13 +4,14 @@ import { BadRequestException } from "src/exceptions/BadRequestException";
 import { Pacient } from "./pacient";
 import { PacientRepository } from "./pacient.repository";
 import { ErrorType } from "src/enums/ErrorType";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class PacientService {
 
     constructor(
         @InjectRepository(Pacient)
-        private readonly pacientRepository: PacientRepository
+        private readonly pacientRepository: Repository<Pacient>
     ) { }
 
     findAll(): Promise<Pacient[]> {
@@ -35,8 +36,11 @@ export class PacientService {
         return pacient;
     }
 
+    public async findPacientByEmail(email: string): Promise<Pacient> {
+        return await this.pacientRepository.findOne({ where: { email: email } });
+    }
+
     async findById(id: string): Promise<Pacient> {
-        console.log("passou por aqui findById");
         const pacient = await this.pacientRepository.findOne(id);
         if (!pacient) {
             throw new BadRequestException("HMA-0003", ErrorType.HMA0003);
@@ -52,7 +56,6 @@ export class PacientService {
     }
 
     async deletePacient(id: string) {
-        console.log("passou por aqui deletePacient");
         await this.findById(id);
         this.pacientRepository.delete(id);
     }

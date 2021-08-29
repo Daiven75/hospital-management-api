@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { DoctorModule } from './doctor/doctor.module';
 import { PacientModule } from './pacient/pacient.module';
 
@@ -18,7 +19,8 @@ import { PacientModule } from './pacient/pacient.module';
       synchronize: true
     }),
     PacientModule,
-    DoctorModule
+    DoctorModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService]
