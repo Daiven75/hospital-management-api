@@ -1,19 +1,20 @@
 import { Gender } from "src/enums/Gender";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
+@Unique(['cpf'])
 export class Pacient {
 
-    @PrimaryGeneratedColumn("uuid")
-    id_pacient?: string;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
-    @Column()
+    @Column({ nullable: false, type: 'varchar', length: 200 })
     name: string;
 
-    @Column({ length: 15 })
+    @Column({ nullable: false, type: 'varchar', length: 11 })
     cpf: string;
 
-    @Column()
+    @Column({ nullable: false, type: 'varchar', length: 200 })
     email: string;
 
     @Column({ scale: 2 })

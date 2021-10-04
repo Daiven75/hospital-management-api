@@ -1,0 +1,6 @@
+export enum StatusScheduling {
+    SCHEDULED = "SCHEDULED",
+    CANCELED = "CANCELED",
+    FINALIZED = "FINALIZED",
+    NOT_FINALIZED = "NOT_FINALIZED"
+}

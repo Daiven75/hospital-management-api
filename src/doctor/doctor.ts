@@ -1,33 +1,42 @@
+import { type } from "os";
 import { Gender } from "src/enums/Gender";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Scheduling } from "src/scheduling/scheduling";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 @Entity()
+@Unique(['crm', 'email', 'phoneNumber'])
 export class Doctor {
 
-    @PrimaryGeneratedColumn("uuid")
-    id_doctor: string;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
-    @Column()
+    @Column({ nullable: false, type: 'varchar', length: 200 })
     name: string;
 
-    @Column()
+    @Column({ nullable: false })
     password: string;
 
-    @Column({ length: 15 })
+    @Column({ nullable: false, type: 'varchar', length: 10 })
     crm: string;
 
-    @Column()
+    @Column({ nullable: false, type: 'varchar', length: 200 })
     email: string;
 
     @Column("enum", { enum: Gender })
     gender: Gender;
 
     @Column("simple-array")
-    qualifications: string[];
+    specialty: string[];
+
+    @OneToMany(type => Scheduling, (scheduling) => scheduling.doctor)
+    schedules: Scheduling[];
 
     @Column({ scale: 2 })
     phoneNumber: number;
 
-    @Column("date")
-    dateJoining: string;
+    @CreateDateColumn()
+    dateJoining: Date;
+
+    @UpdateDateColumn()
+    updateAt: Date;
 }

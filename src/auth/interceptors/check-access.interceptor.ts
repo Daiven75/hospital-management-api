@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { CallHandler, ExecutionContext, NestInterceptor, UnauthorizedException } from "@nestjs/common";
-import { Observable, tap } from "rxjs";
+import { Injectable, Scope } from "@nestjs/common";
+import { CallHandler, ExecutionContext, NestInterceptor } from "@nestjs/common";
+import { tap } from "rxjs";
 import { AuthService } from "../auth.service";
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class CheckAccessInterceptor implements NestInterceptor {
 
     constructor(private readonly authService: AuthService) { }

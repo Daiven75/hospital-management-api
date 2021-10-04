@@ -4,7 +4,6 @@ import { DoctorService } from "src/doctor/doctor.service";
 import { Pacient } from "src/pacient/pacient";
 import { PacientService } from "src/pacient/pacient.service";
 import * as bcrypt from 'bcrypt';
-import { Doctor } from "src/doctor/doctor";
 import { LoginDTO } from "./dto/login.dto";
 import { Request } from "express";
 
@@ -21,11 +20,11 @@ export class AuthService {
 
         if (loginDto.crm) return this.verifyDoctor(loginDto);
 
-        const pacient = await this.verifyDataPacient(loginDto);
+        const pacient: Pacient = await this.verifyDataPacient(loginDto);
 
         await this.checkCredentials(loginDto.password, pacient);
 
-        return await this.jwtService.signAsync({ id: pacient.id_pacient });
+        return await this.jwtService.signAsync({ id: pacient.id });
     }
 
     private async verifyDoctor(loginDto: LoginDTO): Promise<string> {
@@ -33,7 +32,7 @@ export class AuthService {
 
         await this.checkCredentials(loginDto.password, doctor);
 
-        return await this.jwtService.signAsync({ id: doctor.id_doctor });
+        return await this.jwtService.signAsync({ id: doctor.id });
     }
 
     private async verifyDataPacient(loginDto: LoginDTO): Promise<Pacient> {

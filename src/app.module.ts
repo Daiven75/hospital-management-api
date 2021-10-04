@@ -1,29 +1,29 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { DoctorModule } from './doctor/doctor.module';
 import { PacientModule } from './pacient/pacient.module';
+import { SchedulingModule } from './scheduling/scheduling.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: '172.17.0.2',
-      port: 3306,
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
       database: 'hospital',
-      username: 'root',
-      password: 'root',
+      username: 'pguser',
+      password: 'pgpassword',
       autoLoadEntities: true,
       synchronize: true
     }),
     PacientModule,
     DoctorModule,
     AuthModule,
+    SchedulingModule,
   ],
-  controllers: [AppController],
-  providers: [AppService]
+  controllers: [],
+  providers: []
 })
 
 export class AppModule { }

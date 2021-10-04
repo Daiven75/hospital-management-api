@@ -2,9 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { BadRequestException } from "src/exceptions/BadRequestException";
 import { Pacient } from "./pacient";
-import { PacientRepository } from "./pacient.repository";
 import { ErrorType } from "src/enums/ErrorType";
-import { Repository } from "typeorm";
+import { Repository, Transaction } from "typeorm";
 
 @Injectable()
 export class PacientService {
@@ -18,7 +17,8 @@ export class PacientService {
         return this.pacientRepository.find();
     }
 
-    async registerPacient(pacient: Pacient): Promise<Pacient> {
+    @Transaction()
+    public async registerPacient(pacient: Pacient): Promise<Pacient> {
         const existsPacientWithSameCpf = await this.pacientRepository.findOne({
             where: { cpf: pacient.cpf }
         });
@@ -28,7 +28,7 @@ export class PacientService {
         return this.pacientRepository.save(pacient);
     }
 
-    async findPacientByCpf(cpf: string): Promise<Pacient> {
+    public async findPacientByCpf(cpf: string): Promise<Pacient> {
         const pacient = await this.pacientRepository.findOne({ where: { cpf: cpf } });
         if (!pacient) {
             throw new BadRequestException("HMA-0003", ErrorType.HMA0003);
@@ -51,7 +51,7 @@ export class PacientService {
     async updatePacient(id: string, pacientUpdate: Pacient): Promise<Pacient> {
         await this.findById(id);
         const pacient = this.pacientRepository.create(pacientUpdate);
-        pacient.id_pacient = id;
+        pacient.id = id;
         return this.pacientRepository.save(pacient);
     }
 
