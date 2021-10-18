@@ -20,7 +20,7 @@ export class PacientController {
     }
 
     @Get('/:id')
-    findById(@Param('id') id): Promise<Pacient> {
+    findById(@Param('id') id: string): Promise<Pacient> {
         return this.pacientService.findById(id);
     }
 
@@ -31,7 +31,7 @@ export class PacientController {
     }
 
     @Delete('/:id')
-    deletePacient(@Param('id') id): void {
+    deletePacient(@Param('id') id: string): void {
         this.pacientService.deletePacient(id);
     }
 }

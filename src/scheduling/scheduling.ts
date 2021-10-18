@@ -1,4 +1,3 @@
-import { type } from "os";
 import { Doctor } from "src/doctor/doctor";
 import { StatusScheduling } from "src/enums/StatusScheduling";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -21,7 +20,7 @@ export class Scheduling {
     @Column({ nullable: false, type: 'varchar', length: 11 })
     cpf: string;
 
-    @ManyToOne(type => Doctor, (doctor) => doctor.schedules, { eager: true })
+    @ManyToOne(() => Doctor, (doctor) => doctor.schedules, { eager: true })
     @JoinColumn({ name: "doctor_id", referencedColumnName: "id" })
     doctor: Doctor;
 

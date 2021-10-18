@@ -1,8 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, UseInterceptors } from "@nestjs/common";
+import { CheckAccessInterceptor } from "src/auth/interceptors/check-access.interceptor";
 import { Doctor } from "./doctor";
 import { DoctorService } from "./doctor.service";
-import { Request } from "express";
-import { CheckAccessInterceptor } from "src/auth/interceptors/check-access.interceptor";
 import { DoctorDTO } from "./dto/create-doctor.dto";
 
 @UseInterceptors(CheckAccessInterceptor)
@@ -14,7 +13,7 @@ export class DoctorController {
     ) { }
 
     @Get()
-    public async findAll(@Req() request: Request): Promise<Doctor[]> {
+    public async findAll(): Promise<Doctor[]> {
         return this.doctorService.findAll();
     }
 
@@ -24,7 +23,7 @@ export class DoctorController {
     }
 
     @Get('/:id')
-    public async findById(@Req() request: Request, @Param('id') id: string): Promise<Doctor> {
+    public async findById(@Param('id') id: string): Promise<Doctor> {
         return this.doctorService.findById(id);
     }
 

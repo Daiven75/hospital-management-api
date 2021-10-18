@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Injectable, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { SchedulingDTO } from "./dto/scheduling-dto";
 import { Scheduling } from "./scheduling";
 import { SchedulingService } from "./scheduling.service";
@@ -14,8 +14,8 @@ export class SchedulingController {
     }
 
     @Get()
-    public async findAllSchedules(): Promise<Scheduling[]> {
-        return this.schedulingService.findAllSchedules();
+    public async findAll(): Promise<Scheduling[]> {
+        return this.schedulingService.findAll();
     }
 
 }

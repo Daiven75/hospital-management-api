@@ -1,7 +1,6 @@
-import { type } from "os";
 import { Gender } from "src/enums/Gender";
 import { Scheduling } from "src/scheduling/scheduling";
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 @Entity()
 @Unique(['crm', 'email', 'phoneNumber'])
@@ -28,10 +27,10 @@ export class Doctor {
     @Column("simple-array")
     specialty: string[];
 
-    @OneToMany(type => Scheduling, (scheduling) => scheduling.doctor)
+    @OneToMany(() => Scheduling, (scheduling) => scheduling.doctor)
     schedules: Scheduling[];
 
-    @Column({ scale: 2 })
+    @Column({ nullable: true, type: 'varchar', length: 15 })
     phoneNumber: number;
 
     @CreateDateColumn()
