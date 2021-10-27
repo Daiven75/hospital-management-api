@@ -1,0 +1,55 @@
+<html>
+
+<head>
+</head>
+
+<body
+    style="font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif; margin: 0; background: #eee; padding: 10px 0 50px;">
+    <div style="max-width: 600px; margin: 10px auto; background: white;">
+        <div style="background: cadetblue; height: 50px;"></div>
+        <div style="padding: 30px">
+            <h1 style="font-weight: 200; margin: 0 0 20px; font-size: 28px;">
+                Schedule Confirmation
+            </h1>
+            <p style="margin-bottom: 30px; font-size: 16px;">Good news! Your appointment is scheduled.</p>
+            <table style="margin-bottom: 20px; font-size: 12px; color: #555; width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="width: 50%;">
+                            <div style="color: black; font-weight: bold; margin-bottom: 5px;">Address:</div>
+                            <div>Hospital Medical Center</div>
+                            <div>Av. Prof. Carlos Cunha</div>
+                            <div>Jaracaty, São Luís - MA</div>
+                            <div>65076-820</div>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div style="color: black; font-weight: bold; margin-bottom: 5px;">Schedule Date:</div>
+                            <div>{{ schuduleDate }}</div>
+                            <div style="color: black; font-weight: bold; margin: 9px 0 5px;">Hours:</div>
+                            <div>{{ scheduleStartTime }} - {{ scheduleEndTime }}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table
+                style="width: 100%; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-size: 12px;">
+                <thead>
+                    <tr style="font-size: 12px;">
+                        <th style="text-align: left; text-transform: uppercase; padding: 20px 0 10px;">Doctor</th>
+                        <th style="text-align: right; text-transform: uppercase; padding: 20px 0 10px;">CRM</th>
+                        <th style="text-align: right; text-transform: uppercase; padding: 20px 0 10px;">Specialty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="font-size: 14px;">
+                        <td style="padding: 0 0 10px;">{{ doctor }}</td>
+                        <td style="padding: 0 0 10px; color: #555; text-align: right;">{{ crm }}</td>
+                        <td style="padding: 0 0 10px; color: #555; text-align: right;">{{ specialty }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { DoctorModule } from './doctor/doctor.module';
+import { MailModule } from './mail/mail.module';
 import { PacientModule } from './pacient/pacient.module';
 import { SchedulingModule } from './scheduling/scheduling.module';
 
@@ -21,6 +22,7 @@ import { SchedulingModule } from './scheduling/scheduling.module';
     DoctorModule,
     AuthModule,
     SchedulingModule,
+    MailModule
   ],
   controllers: [],
   providers: []

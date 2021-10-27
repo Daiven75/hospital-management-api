@@ -23,6 +23,6 @@ export class Pacient {
     @Column("enum", { enum: Gender })
     gender: Gender;
 
-    @Column({ scale: 2 })
+    @Column({ nullable: true, type: 'varchar', length: 15 })
     phoneNumber: number;
 }

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { SchedulingDTO } from "./dto/scheduling-dto";
+import { SchedulingDTO } from "./dto/scheduling.dto";
 import { Scheduling } from "./scheduling";
 import { SchedulingService } from "./scheduling.service";
 
